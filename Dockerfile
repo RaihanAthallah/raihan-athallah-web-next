@@ -1,4 +1,4 @@
-# 1️⃣ Base stage: Build the Next.js application
+# Use official Node.js LTS version as base image
 FROM node:18-alpine AS builder
 
 # Set working directory
@@ -6,34 +6,34 @@ WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package.json package-lock.json ./
-RUN npm install 
+
+# Install dependencies
+RUN npm ci
 
 # Copy the rest of the application files
 COPY . .
 
-# Build the Next.js application
+# Build the Next.js project
 RUN npm run build
 
-# Install production dependencies only
-RUN npm ci --production
-
-# 2️⃣ Production stage: Serve Next.js app
+# Use a minimal base image for production
 FROM node:18-alpine
 
 # Set working directory
 WORKDIR /app
 
-# Copy built application from builder stage
+# Copy built files and production dependencies
 COPY --from=builder /app/package.json /app/package-lock.json ./
-COPY --from=builder /app/node_modules ./node_modules
+RUN npm ci --omit=dev
+
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/.env.production ./.env.production
 
 # Expose the application port
 EXPOSE 3000
 
-# Set environment variables (can be overridden via --env-file)
-ENV NODE_ENV=production
-
-# Start Next.js app
-CMD ["node_modules/.bin/next", "start"]
+# Run Next.js in production mode
+CMD ["npm", "run", "start"]
