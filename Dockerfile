@@ -30,10 +30,9 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/.env.production ./.env.production
 
 # Expose the application port
 EXPOSE 3000
 
-# Run Next.js in production mode
+# Start the Next.js app
 CMD ["npm", "run", "start"]
