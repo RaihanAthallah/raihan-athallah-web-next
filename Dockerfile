@@ -13,6 +13,10 @@ RUN npm ci
 # Copy the rest of the application files
 COPY . .
 
+# Ensure the environment variable is available during build
+ARG NEXT_PUBLIC_API_BASE_URL
+ENV NEXT_PUBLIC_API_BASE_URL=${NEXT_PUBLIC_API_BASE_URL}
+
 # Build the Next.js project
 RUN npm run build
 
