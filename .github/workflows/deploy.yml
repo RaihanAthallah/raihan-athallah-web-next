@@ -27,7 +27,7 @@ jobs:
       # Set environment variables
       - name: Set Environment Variables
         run: |
-          echo "NEXT_PUBLIC_API_BASE_URL=${{ secrets.API_BASE_URL }}" >> .env.production
+          echo "NEXT_PUBLIC_API_BASE_URL=${{ secrets.API_BASE_URL }}" >> .env
 
       - name: Build Next.js project
         run: npm run build
@@ -65,9 +65,9 @@ jobs:
 
             echo "Running new container..."
             docker run -d --name $CONTAINER_NAME -p 3000:3000 \
-              --env-file $ENV_PATH \
-              --restart always \
-              $IMAGE_NAME:latest
+            -e NEXT_PUBLIC_API_BASE_URL=http://209.38.56.155:8090 \
+            --restart always \
+            $IMAGE_NAME:latest
 
             echo "Removing unused Docker images..."
             docker image prune -af
