@@ -24,18 +24,18 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Next.js application
+      - name: Build Next.js project
         run: npm run build
 
       - name: Build and tag Docker image
         run: |
-          IMAGE_NAME=ghcr.io/${{ secrets.GHCR_USERNAME }}/nextjs-frontend
+          IMAGE_NAME=ghcr.io/${{ secrets.GHCR_USERNAME }}/nextjs-app
           docker build -t $IMAGE_NAME:latest .
           docker tag $IMAGE_NAME:latest $IMAGE_NAME:${{ github.sha }}
 
       - name: Push Docker image to GHCR
         run: |
-          IMAGE_NAME=ghcr.io/${{ secrets.GHCR_USERNAME }}/nextjs-frontend
+          IMAGE_NAME=ghcr.io/${{ secrets.GHCR_USERNAME }}/nextjs-app
           docker push $IMAGE_NAME:latest
           docker push $IMAGE_NAME:${{ github.sha }}
 
@@ -50,9 +50,9 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            IMAGE_NAME=ghcr.io/${{ secrets.GHCR_USERNAME }}/nextjs-frontend
-            CONTAINER_NAME=nextjs-frontend
-            ENV_PATH="${{ secrets.ENV_PATH }}/.env.production"
+            IMAGE_NAME=ghcr.io/${{ secrets.GHCR_USERNAME }}/nextjs-app
+            CONTAINER_NAME=nextjs-app
+            ENV_PATH="${{ secrets.ENV_PATH }}/.env.production"  # This is set in GitHub Secrets
 
             echo "Pulling latest image..."
             docker pull $IMAGE_NAME:latest
