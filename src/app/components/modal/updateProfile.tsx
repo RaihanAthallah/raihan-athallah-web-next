@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Modal from "../common/modal"; // Adjust the path as necessary
 
 export function CreateExperienceModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {

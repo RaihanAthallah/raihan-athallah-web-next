@@ -1,7 +1,6 @@
-import { User } from "@/app/types/user";
 import { jwtData } from "@/app/types/user";
 
-export function jwtDecode<T>(token: string): jwtData {
+export function jwtDecode<T>(token: string): T {
   const base64Url = token.split(".")[1];
   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
   const jsonPayload = decodeURIComponent(
@@ -12,10 +11,9 @@ export function jwtDecode<T>(token: string): jwtData {
   );
 
   console.log("jsonPayload", jsonPayload);
-  console.log("user data", JSON.parse(jsonPayload) as jwtData);
+  console.log("user data", JSON.parse(jsonPayload) as T);
 
-  //   mapping jsonPayload to User type
-  return JSON.parse(jsonPayload) as jwtData;
+  return JSON.parse(jsonPayload) as T;
 }
 
 export function setToken(token: string): void {

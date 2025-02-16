@@ -1,11 +1,18 @@
 import React from "react";
-import { Calendar, Building2, Code, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Project } from "@/app/types/project";
+import Image from "next/image";
 
 const ProjectCard: React.FC<Project> = ({ title, description, imageUrl, techStacks, projectUrl }) => (
   <div className="bg-gray-800/50 rounded-lg overflow-hidden group hover:bg-gray-700/50 transition-all">
     <div className="relative aspect-video overflow-hidden">
-      <img src={imageUrl} alt={title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+      <Image
+        width={300} // Set your desired width
+        height={200} // Set your desired height
+        src={imageUrl}
+        alt={title}
+        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+      />
       {projectUrl && (
         <a href={projectUrl} target="_blank" rel="noopener noreferrer" className="absolute inset-0 bg-gray-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
           <ExternalLink className="text-cyan-400" size={32} />

@@ -1,5 +1,4 @@
 import { Login } from "@/app/types/user";
-import { url } from "inspector";
 import { setCookie } from "@/app/utils/auth";
 // use this service to fetch data from the server
 

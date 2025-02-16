@@ -1,9 +1,9 @@
 import React from "react";
-import { Calendar, Building2, Code, ExternalLink } from "lucide-react";
+import { Calendar, Building2 } from "lucide-react";
 import { Experience } from "@/app/types/experience";
 import { formatDate } from "@/app/utils/utils";
 
-const ExperienceCard: React.FC<Experience> = ({ position, company, description, startDate, endDate, achievements }) => (
+const ExperienceCard: React.FC<Experience> = ({ position, company, startDate, achievements }) => (
   <div className="relative pl-8 sm:pl-32 py-6 group">
     {/* Timeline line */}
     <div className="h-full w-1 bg-cyan-400/20 absolute left-0 sm:left-16 top-0" />

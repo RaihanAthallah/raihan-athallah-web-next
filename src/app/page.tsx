@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Code, Terminal, Database, Server, LucideIcon } from "lucide-react";
-import Module from "module";
+// import { LucideIcon } from "lucide-react";
 import { Experience } from "@/app/types/experience";
 import { ExperienceService } from "@/app/services/experience";
 import ExperienceCard from "@/app/components/card/experience";
@@ -11,18 +10,18 @@ import ProjectCard from "@/app/components/card/project";
 import Header from "@/app/components/common/header";
 import { Footer } from "@/app/components/common/footer";
 
-interface TechIcon {
-  icon: LucideIcon;
-  delay: number;
-}
+// interface TechIcon {
+//   icon: LucideIcon;
+//   delay: number;
+// }
 
 const Home: React.FC = () => {
-  const techIcons: TechIcon[] = [
-    { icon: Terminal, delay: 0 },
-    { icon: Database, delay: 0.5 },
-    { icon: Code, delay: 1 },
-    { icon: Server, delay: 1.5 },
-  ];
+  // const techIcons: TechIcon[] = [
+  //   { icon: Terminal, delay: 0 },
+  //   { icon: Database, delay: 0.5 },
+  //   { icon: Code, delay: 1 },
+  //   { icon: Server, delay: 1.5 },
+  // ];
 
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);

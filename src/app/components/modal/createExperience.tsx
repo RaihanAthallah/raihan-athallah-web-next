@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Modal from "../common/modal"; // Adjust the path as necessary
 import { Plus, X } from "lucide-react";
 import { Experience } from "../../types/experience";
-// import { api } from "~/trpc/react";
 
 export function CreateExperienceModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [experience, setExperience] = useState<Omit<Experience, "endDate"> & { endDate?: Date }>({
@@ -11,67 +10,57 @@ export function CreateExperienceModal({ isOpen, onClose }: { isOpen: boolean; on
     company: "",
     description: "",
     startDate: new Date(),
-    endDate: undefined /* or null */,
+    endDate: undefined, // or null
     createdAt: new Date(),
     updatedAt: new Date(),
     achievements: [],
   });
 
   const [newAchievement, setNewAchievement] = useState<string>("");
-  // const createExperienceMutation = api.experience.createExperience.useMutation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setExperience({ ...experience, [name]: value });
+    setExperience((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleAddAchievement = () => {
     if (newAchievement.trim()) {
-      setExperience({
-        ...experience,
+      setExperience((prev) => ({
+        ...prev,
         achievements: [
-          ...experience.achievements,
+          ...prev.achievements,
           {
             id: crypto.randomUUID(),
             description: newAchievement,
-            experienceId: experience.id,
+            experienceId: prev.id,
           },
         ],
-      });
+      }));
       setNewAchievement("");
     }
   };
 
   const handleRemoveAchievement = (id: string) => {
-    setExperience({
-      ...experience,
-      achievements: experience.achievements.filter((achievement) => achievement.id !== id),
-    });
+    setExperience((prev) => ({
+      ...prev,
+      achievements: prev.achievements.filter((achievement) => achievement.id !== id),
+    }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // We define an async function inside the effect to handle the async logic
-    const submitExperience = async () => {
-      try {
-        console.log({
-          position: experience.position,
-          company: experience.company,
-          description: experience.description,
-          startDate: experience.startDate,
-          endDate: experience.endDate,
-          achievements: experience.achievements.map((achievement) => achievement.description),
-        });
-      } catch (error) {
-        console.error("Failed to create experience:", error);
-      }
-    };
-
-    // Using useEffect to handle async operations
-    useEffect(() => {
-      submitExperience();
-    }, [experience]); // Dependency array ensures the effect runs when experience changes
+    try {
+      console.log({
+        position: experience.position,
+        company: experience.company,
+        description: experience.description,
+        startDate: experience.startDate,
+        endDate: experience.endDate,
+        achievements: experience.achievements.map((achievement) => achievement.description),
+      });
+    } catch (error) {
+      console.error("Failed to create experience:", error);
+    }
   };
 
   return (
@@ -121,10 +110,10 @@ export function CreateExperienceModal({ isOpen, onClose }: { isOpen: boolean; on
               name="startDate"
               value={experience.startDate.toISOString().split("T")[0]}
               onChange={(e) =>
-                setExperience({
-                  ...experience,
+                setExperience((prev) => ({
+                  ...prev,
                   startDate: new Date(e.target.value),
-                })
+                }))
               }
               className="w-full rounded-lg bg-gray-700/50 p-2 text-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
             />
@@ -135,12 +124,12 @@ export function CreateExperienceModal({ isOpen, onClose }: { isOpen: boolean; on
             <input
               type="date"
               name="endDate"
-              value={experience.endDate?.toISOString().split("T")[0] || ""}
+              value={experience.endDate ? experience.endDate.toISOString().split("T")[0] : ""}
               onChange={(e) =>
-                setExperience({
-                  ...experience,
+                setExperience((prev) => ({
+                  ...prev,
                   endDate: e.target.value ? new Date(e.target.value) : undefined,
-                })
+                }))
               }
               className="w-full rounded-lg bg-gray-700/50 p-2 text-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
             />

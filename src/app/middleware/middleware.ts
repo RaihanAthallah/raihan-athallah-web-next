@@ -10,39 +10,40 @@ interface jwtData {
 }
 
 export function middleware(req: NextRequest) {
-  const token = req.cookies.get("authToken"); // Example: Check for an auth token in cookies
+  const token = req.cookies.get("authToken"); // Get token from cookies
+
   if (!token) {
-    // Redirect to the login page if the user is not authenticated
+    // Redirect to login if the token is missing
     return NextResponse.redirect("/login");
   }
 
-  //   check token expiry
-  const jwtData = jwtDecode(token.value);
-  const now = new Date();
-  const expiry = new Date(jwtData.exp * 1000);
+  // Decode token safely
+  const jwtData = jwtDecode<jwtData>(token.value);
+  if (!jwtData || typeof jwtData.exp !== "number") {
+    return NextResponse.redirect("/login"); // Invalid token, redirect
+  }
+
+  // Check token expiry
+  const now = Date.now();
+  const expiry = jwtData.exp * 1000; // Convert exp to milliseconds
   if (now > expiry) {
-    // Redirect to the login page if the token is expired
-    return NextResponse.redirect("/login");
+    return NextResponse.redirect("/login"); // Token expired, redirect
   }
 
-  // Paths that require authentication
+  // Paths requiring authentication
   const protectedPaths = ["/admin-dashboard", "/project"];
-
   const isProtectedPath = protectedPaths.some((path) => req.nextUrl.pathname.startsWith(path));
 
   if (isProtectedPath && !token) {
-    // Redirect to the login page if the user is not authenticated
-    const loginUrl = new URL("/login", req.url);
-    return NextResponse.redirect(loginUrl);
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  // Allow the request to continue
-  return NextResponse.next();
+  return NextResponse.next(); // Allow request
 }
 
 export const config = {
   matcher: [
-    "pages/admin-dashboard/:path*", // Protect admin-dashboard and all its subpaths
+    "/admin-dashboard/:path*", // Protect admin-dashboard and all its subpaths
     "/project/:path*", // Protect project and all its subpaths
   ],
 };

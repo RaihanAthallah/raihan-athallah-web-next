@@ -1,5 +1,4 @@
 import { Experience } from "@/app/types/experience";
-import { url } from "inspector";
 // use this service to fetch data from the server
 
 // get API url from environment variable

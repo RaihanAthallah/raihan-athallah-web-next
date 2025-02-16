@@ -19,6 +19,7 @@ type FloatingIconProps = {
   text: string;
 };
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const CodeBlock: React.FC<CodeBlockProps> = ({ delay = 0 }) => {
   const [styles, setStyles] = useState<React.CSSProperties>({});
 
@@ -47,6 +48,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ delay = 0 }) => {
     </div>
   );
 };
+/* eslint-enable @typescript-eslint/no-unused-vars */
 
 const FloatingIcon: React.FC<FloatingIconProps> = ({ icon: Icon, x, y, delay, size = 69, color = "#00ADD8", text }) => {
   const [styles, setStyles] = useState<React.CSSProperties>({});

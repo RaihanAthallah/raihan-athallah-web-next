@@ -2,11 +2,9 @@
 
 import { useState, useEffect } from "react";
 import React from "react";
-// import { api } from "~/trpc/react";
 import type { Project } from "../../types/project";
 import type { Experience } from "../../types/experience";
 import type { Profile } from "../../types/profile";
-import { GetServerSideProps } from "next";
 
 import { CreateProjectModal } from "@/app/components/modal/createProject";
 import { CreateExperienceModal } from "@/app/components/modal/createExperience";
@@ -14,53 +12,28 @@ import { formatDate } from "@/app/utils/utils";
 import Navbar from "@/app/components/common/navbar";
 import { ExperienceService } from "@/app/services/experience";
 import { ProjectService } from "@/app/services/project";
-import { ProfileService } from "@/app/services/profile";
-
-// const getServerSideProps: GetServerSideProps<Props> = async () => {
-//   const experiences = await ExperienceService.fetchExperiences();
-//   const profile = ; // await ProfileService.fetchProfile();
-//   const projects = await ProjectService.fetchProjects();
-//   return {
-//     props: {
-//       experiences,
-//     },
-//   };
-// };
 
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"projects" | "experience" | "profile">("projects");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const [profile] = useState<Profile | null>(null); // Removed setProfile since it's unused
 
-  const handleCreateProject = () => {
-    setIsModalOpen(true);
-  };
-  const handleCreateExperience = () => {
-    setIsModalOpen(true);
-  };
-  const handleCreateProfile = () => {
-    setIsModalOpen(true);
-  };
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  const handleCreateProject = () => setIsModalOpen(true);
+  const handleCreateExperience = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const dataExperience = await ExperienceService.fetchExperiences();
         const dataProjects = await ProjectService.fetchProjects();
-        // const dataProfile = await ProfileService.fetchProfile(); // await ProfileService.fetchProfile();
 
         setExperiences(dataExperience);
         setProjects(dataProjects);
-        // setProfile(dataProfile);
       } catch (error) {
         console.error("Error fetching data:", error);
-      } finally {
-        // setLoading(false);
       }
     }
     fetchData();
@@ -81,17 +54,15 @@ const AdminDashboard: React.FC = () => {
           </button>
         </div>
 
-        {/* Content sections */}
         {activeTab === "projects" && (
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Projects</h2>
             <button className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600" onClick={handleCreateProject}>
               Create
             </button>
-            {/* Modal */}
             <CreateProjectModal isOpen={isModalOpen} onClose={handleCloseModal} />
             <div className="space-y-4">
-              {projects?.map((project: Project) => (
+              {projects?.map((project) => (
                 <div key={project.id} className="rounded-lg bg-white p-4 shadow">
                   <h3 className="text-xl font-semibold">{project.title}</h3>
                   <p className="text-gray-600">{project.description}</p>
@@ -119,10 +90,9 @@ const AdminDashboard: React.FC = () => {
             <button className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600" onClick={handleCreateExperience}>
               Create
             </button>
-            {/* Modal */}
             <CreateExperienceModal isOpen={isModalOpen} onClose={handleCloseModal} />
             <div className="space-y-4">
-              {experiences?.map((experience: Experience) => (
+              {experiences?.map((experience) => (
                 <div key={experience.id} className="rounded-lg bg-gray-800/50 p-6 p-4 shadow">
                   <h3 className="text-xl font-semibold">{experience.position}</h3>
                   <p className="text-gray-300">{experience.company}</p>

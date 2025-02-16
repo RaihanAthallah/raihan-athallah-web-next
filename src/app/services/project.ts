@@ -1,5 +1,4 @@
 import { Project } from "@/app/types/project";
-import { url } from "inspector";
 // use this service to fetch data from the server
 
 // get API url from environment variable
