@@ -52,7 +52,7 @@ jobs:
           script: |
             IMAGE_NAME=ghcr.io/${{ secrets.GHCR_USERNAME }}/nextjs-frontend
             CONTAINER_NAME=nextjs-frontend
-            ENV_PATH="${{ secrets.ENV_PATH }}/.env"
+            ENV_PATH="${{ secrets.ENV_PATH }}/.env.production"
 
             echo "Pulling latest image..."
             docker pull $IMAGE_NAME:latest
