@@ -65,7 +65,7 @@ jobs:
 
             echo "Running new container..."
             docker run -d --name $CONTAINER_NAME -p 3000:3000 \
-            -e NEXT_PUBLIC_API_BASE_URL=http://209.38.56.155:8090 \
+            -e NEXT_PUBLIC_API_BASE_URL=https://raihanathallah.com/portofolio \
             --restart always \
             $IMAGE_NAME:latest
 
