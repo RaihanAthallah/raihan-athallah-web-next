@@ -24,20 +24,23 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      # Set environment variables
+      - name: Set Environment Variables
+        run: |
+          echo "NEXT_PUBLIC_API_BASE_URL=${{ secrets.API_BASE_URL }}" >> .env
+
       - name: Build Next.js project
         run: npm run build
 
-      - name: Build and tag Docker image
+      - name: Build and Push Docker Image to GHCR
         run: |
           IMAGE_NAME=ghcr.io/${{ secrets.GHCR_USERNAME }}/nextjs-app
-          docker build --build-arg NEXT_PUBLIC_API_BASE_URL=${{ secrets.API_BASE_URL }} -t ghcr.io/${{ secrets.GHCR_USERNAME }}/nextjs-app:latest .
-          docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/nextjs-app:latest
-
-      - name: Push Docker image to GHCR
-        run: |
-          IMAGE_NAME=ghcr.io/${{ secrets.GHCR_USERNAME }}/nextjs-app
+          echo "Building Docker image with API Base URL..."
+          docker build --build-arg NEXT_PUBLIC_API_BASE_URL=${{ secrets.API_BASE_URL }} -t $IMAGE_NAME:latest .
+          
+          echo "Pushing Docker image to GHCR..."
           docker push $IMAGE_NAME:latest
-          docker push $IMAGE_NAME:${{ github.sha }}
+
 
   deploy:
     needs: build
@@ -62,9 +65,9 @@ jobs:
 
             echo "Running new container..."
             docker run -d --name $CONTAINER_NAME -p 3000:3000 \
-              --env-file $ENV_PATH \
-              --restart always \
-              $IMAGE_NAME:latest
+            -e NEXT_PUBLIC_API_BASE_URL=https://raihanathallah.com/portofolio \
+            --restart always \
+            $IMAGE_NAME:latest
 
             echo "Removing unused Docker images..."
             docker image prune -af
