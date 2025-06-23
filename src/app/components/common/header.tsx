@@ -1,126 +1,133 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Laptop } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { SiGoland, SiPostgresql, SiDotnet, SiDocker, SiGit, SiMysql } from "react-icons/si";
 import { IconType } from "react-icons";
-// import { icons } from "react-icons";
+
+// --- PROPS DEFINITIONS ---
 
 type CodeBlockProps = {
-  delay?: number;
+  // Pass position and animation delay for more control
+  top: string;
+  right?: string;
+  left?: string;
+  animationDelay: string;
+  animationDuration: string;
 };
 
 type FloatingIconProps = {
   icon: IconType;
-  x: number;
-  y: number;
+  top: string;
+  right?: string;
+  left?: string;
   size?: number;
   color?: string;
-  delay: number;
+  animationDelay: string;
+  animationDuration: string;
   text: string;
 };
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-const CodeBlock: React.FC<CodeBlockProps> = ({ delay = 0 }) => {
-  const [styles, setStyles] = useState<React.CSSProperties>({});
+// --- REFINED UI COMPONENTS ---
 
-  useEffect(() => {
-    setStyles({
-      animationDelay: `${delay}s`,
-      top: `${Math.sin(delay * Math.PI) * 40}%`,
-      right: `${Math.cos(delay * Math.PI) * 20}%`,
-    });
-  }, [delay]);
+/**
+ * CodeBlock Component: Represents a floating, abstract code window.
+ * Now accepts position and animation properties for flexible placement.
+ */
+const CodeBlock: React.FC<CodeBlockProps> = ({ top, right, left, animationDelay, animationDuration }) => {
+  const style: React.CSSProperties = {
+    top,
+    right,
+    left,
+    animationDelay,
+    animationDuration,
+  };
 
   return (
-    <div className="absolute bg-cyan-400/10 rounded-lg p-4 backdrop-blur-sm animate-float" style={styles}>
-      <div className="flex items-center gap-2 mb-2">
-        <div className="flex gap-1.5">
-          <div className="w-2.5 h-2.5 rounded-full bg-red-500"></div>
-          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
-          <div className="w-2.5 h-2.5 rounded-full bg-green-500"></div>
-        </div>
+    <div className="absolute bg-cyan-400/5 rounded-lg p-3 md:p-4 backdrop-blur-sm animate-float border border-cyan-400/10" style={style}>
+      <div className="flex items-center gap-1.5 mb-2">
+        <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-slate-600"></div>
+        <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-slate-600"></div>
+        <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-slate-600"></div>
       </div>
-      <div className="space-y-1">
+      <div className="space-y-1.5">
         <div className="h-2 w-24 bg-cyan-400/20 rounded"></div>
         <div className="h-2 w-20 bg-cyan-400/15 rounded"></div>
-        <div className="h-2 w-16 bg-cyan-400/10 rounded"></div>
+        <div className="h-2 w-28 bg-cyan-400/10 rounded"></div>
       </div>
     </div>
   );
 };
-/* eslint-enable @typescript-eslint/no-unused-vars */
 
-const FloatingIcon: React.FC<FloatingIconProps> = ({ icon: Icon, x, y, delay, size = 69, color = "#00ADD8", text }) => {
-  const [styles, setStyles] = useState<React.CSSProperties>({});
-
-  useEffect(() => {
-    setStyles({
-      //   animationDelay: `${delay}s`,
-      top: `${y}%`,
-      right: `${x}%`,
-    });
-  }, [x, y, delay]);
+/**
+ * FloatingIcon Component: A floating technology icon.
+ * Now includes animation properties for a more dynamic, staggered effect.
+ */
+const FloatingIcon: React.FC<FloatingIconProps> = ({ icon: Icon, top, right, left, animationDelay, animationDuration, size = 56, color = "#00ADD8", text }) => {
+  const style: React.CSSProperties = {
+    top,
+    right,
+    left,
+    animationDelay,
+    animationDuration,
+  };
 
   return (
-    <div
-      className="absolute animate-float group" // Added group class for hover effects
-      style={styles}
-    >
-      <div className="relative group-hover:scale-110 transition-all duration-300">
-        <Icon size={size} color={color} />
-        <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full text-xs text-white bg-black px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">{text}</span>
+    <div className="absolute animate-float group" style={style}>
+      <div className="relative group-hover:scale-110 transition-transform duration-300 ease-in-out">
+        <Icon size={size} color={color} className="opacity-80 group-hover:opacity-100 transition-opacity" />
+        {/* Tooltip for icon name on hover */}
+        <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full text-xs text-white bg-gray-900/80 px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">{text}</span>
       </div>
     </div>
   );
 };
+
+// --- MAIN HEADER COMPONENT ---
 
 const Header: React.FC = () => {
   return (
-    <section className="min-h-screen relative overflow-hidden">
-      <div className="relative container px-6 pt-20 md:pt-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          {/* Left side - Text content */}
-          <div>
-            <h2 className="text-cyan-400 text-md md:text-lg font-medium animate-fade-in">Backend Developer & Database Enthusiast</h2>
-            <h1 className="text-4xl md:text-6xl font-bold text-white typing-effect">
-              Hello, I am <span className="text-cyan-400 inline-block animate-text-slide-up">Raihan</span>
-              <span className="animate-wave inline-block ml-2">👋</span>
-            </h1>
-            <p className="text-gray-300 text-md md:text-lg leading-relaxed animate-fade-in-up">
-              Informatics graduate from Institut Teknologi Sepuluh Nopember with a passion for building scalable backend systems and dynamic web applications. Always eager to solve complex problems, optimize performance, and create seamless
-              digital experiences.
-            </p>
+    <section className="min-h-screen relative flex items-center justify-center overflow-hidden bg-gray-900">
+      {/* Background Animation Canvas */}
+      <div className="absolute inset-0 w-full h-full opacity-50 md:opacity-100">
+        <FloatingIcon icon={SiGoland} top="15%" left="10%" animationDelay="0s" animationDuration="10s" text="Go (Golang)" color="#00ADD8" />
+        <FloatingIcon icon={SiPostgresql} top="20%" right="12%" animationDelay="1s" animationDuration="12s" text="PostgreSQL" color="#336791" />
+        <FloatingIcon icon={SiDocker} top="65%" right="8%" animationDelay="2s" animationDuration="11s" text="Docker" color="#0DB7ED" size={64} />
+        <FloatingIcon icon={SiDotnet} top="70%" left="15%" animationDelay="0.5s" animationDuration="13s" text=".NET" color="#512BD4" />
+        <FloatingIcon icon={SiMysql} top="45%" right="25%" animationDelay="1.5s" animationDuration="9s" text="MySQL" color="#00758F" size={48} />
+        <FloatingIcon icon={SiGit} top="40%" left="20%" animationDelay="2.5s" animationDuration="14s" text="Git" color="#F05032" size={44} />
 
-            <div className="flex flex-col md:flex-row gap-4 animate-fade-in-up mt-4">
-              <a
-                href="#PROJECTS"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector("#PROJECTS")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-gray-900 font-medium rounded-lg transition-all transform hover:scale-105 text-center"
-              >
-                View Projects
-              </a>
+        {/* Add decorative CodeBlock elements for more visual flair */}
+        <CodeBlock top="80%" right="20%" animationDelay="0.2s" animationDuration="15s" />
+        <CodeBlock top="10%" right="40%" animationDelay="1.8s" animationDuration="18s" />
+      </div>
 
-              <a href="mailto:rraihan1947@gmail.com" className="px-6 py-3 border border-cyan-400 text-cyan-400 hover:bg-cyan-400/10 rounded-lg transition-all text-center">
-                Contact Me
-              </a>
-            </div>
-          </div>
+      {/* Foreground Content */}
+      <div className="relative container mx-auto px-6 text-center z-10">
+        <h2 className="text-cyan-400 text-lg md:text-xl font-medium animate-fade-in">Backend Developer & Database Architect</h2>
+        <h1 className="mt-2 text-4xl sm:text-5xl md:text-7xl font-bold text-white animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+          Hello, I'm <span className="text-cyan-400">Raihan</span>
+          <span className="animate-wave inline-block ml-4 origin-[70%_70%]">👋</span>
+        </h1>
+        <p className="mt-6 max-w-2xl mx-auto text-gray-300 text-md md:text-lg leading-relaxed animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
+          I architect and build robust backend systems and high-performance web applications. As an Informatics graduate from ITS, I thrive on solving complex problems, optimizing database performance, and creating seamless digital experiences.
+        </p>
 
-          {/* Right side - Programming Animation */}
-          <div className="relative h-[300px] md:h-[500px] hidden md:block">
-            <div className="absolute top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2">
-              <Laptop size={90} className="text-cyan-400" />
-            </div>
-            <FloatingIcon icon={SiGoland} x={30} y={20} delay={0} color="#00ADD8" text="Golang" />
-            <FloatingIcon icon={SiPostgresql} x={60} y={20} delay={0} color="#336791" text="PostgreSQL" />
-            <FloatingIcon icon={SiMysql} x={70} y={45} delay={0} color="#00758F" text="MySQL" />
-            <FloatingIcon icon={SiGit} x={20} y={45} delay={0} color="#F05032" text="Git" />
-            <FloatingIcon icon={SiDotnet} x={30} y={70} delay={0} color="#512BD4" text=".NET" />
-            <FloatingIcon icon={SiDocker} x={60} y={70} delay={0} color="#0DB7ED" text="Docker" />
-          </div>
+        <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{ animationDelay: "0.6s" }}>
+          <a
+            href="#PROJECTS"
+            onClick={(e) => {
+              e.preventDefault();
+              document.querySelector("#PROJECTS")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="group inline-flex items-center justify-center px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-gray-900 font-bold rounded-lg transition-all transform hover:scale-105"
+          >
+            View My Work
+            <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+          </a>
+
+          <a href="mailto:rraihan1947@gmail.com" className="px-6 py-3 border border-cyan-400 text-cyan-400 hover:bg-cyan-400/10 font-medium rounded-lg transition-all">
+            Get In Touch
+          </a>
         </div>
       </div>
     </section>

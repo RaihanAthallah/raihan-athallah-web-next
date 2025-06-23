@@ -1,34 +1,30 @@
 import React from "react";
-import { Calendar, Building2 } from "lucide-react";
+import { Calendar, Building2, Award } from "lucide-react";
 import { Experience } from "@/app/types/experience";
-import { formatDate } from "@/app/utils/utils";
+import { formatDateRange } from "@/app/utils/utils"; // Assuming you create this helper
 
-const ExperienceCard: React.FC<Experience> = ({ position, company, startDate, achievements }) => (
-  <div className="relative pl-8 sm:pl-32 py-6 group">
-    {/* Timeline line */}
-    <div className="h-full w-1 bg-cyan-400/20 absolute left-0 sm:left-16 top-0" />
-
-    {/* Timeline dot */}
-    <div className="absolute left-[-5px] sm:left-[59px] top-8 h-3 w-3 rounded-full bg-cyan-400 shadow-lg shadow-cyan-400/50" />
-
-    <div className="bg-gray-800/50 p-6 rounded-lg hover:bg-gray-700/50 transition-all group-hover:shadow-lg group-hover:shadow-cyan-500/10">
-      <div className="flex items-center gap-4 mb-4">
-        <Building2 className="text-cyan-400" size={24} />
-        <h3 className="text-xl font-semibold text-cyan-400">{position}</h3>
+// This card is now a self-contained block, making it reusable and easier to manage.
+// The timeline layout is handled by the parent component (Home.tsx).
+const ExperienceCard: React.FC<Experience> = ({ position, company, startDate, endDate, achievements }) => (
+  <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700/50 w-full transition-all duration-300 hover:border-cyan-400/50 hover:bg-gray-800">
+    <h3 className="text-xl font-bold text-cyan-400">{position}</h3>
+    <div className="flex flex-col  gap-x-4 gap-y-1 text-gray-400 mt-1 mb-4">
+      <div className="flex items-center gap-2">
+        <Building2 size={16} />
+        <p className="font-medium">{company}</p>
       </div>
-      <div className="flex items-center gap-2 text-gray-400 mb-2">
+      <div className="flex items-center gap-2">
         <Calendar size={16} />
-        <span>{formatDate(startDate)}</span> <span>-</span>
+        <span>{formatDateRange(startDate, endDate)}</span>
       </div>
-      <p className="text-gray-300 font-medium mb-3">{company}</p>
-      <ul className="space-y-2">
-        {achievements.map((achievement, index) => (
-          <li key={index} className="text-gray-400">
-            • {achievement.description}
-          </li>
-        ))}
-      </ul>
     </div>
+    <ul className="space-y-2 list-disc list-inside">
+      {achievements.map((achievement) => (
+        <li key={achievement.id} className="text-gray-300 text-sm">
+          {achievement.description}
+        </li>
+      ))}
+    </ul>
   </div>
 );
 
