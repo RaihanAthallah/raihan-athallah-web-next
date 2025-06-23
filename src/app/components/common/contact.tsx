@@ -48,7 +48,7 @@ const Contact: React.FC = () => {
         {/* Section Header */}
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-cyan-400">Get In Touch</h2>
-          <p className="text-gray-400 mt-2 text-lg">I'm open to discussing new projects and opportunities. Let's connect!</p>
+          <p className="text-gray-400 mt-2 text-lg">I am open to discussing new projects and opportunities. Lets connect!</p>
         </div>
 
         {/* Contact Links Grid */}

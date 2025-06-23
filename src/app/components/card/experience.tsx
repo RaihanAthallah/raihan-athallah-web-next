@@ -1,5 +1,5 @@
 import React from "react";
-import { Calendar, Building2, Award } from "lucide-react";
+import { Calendar, Building2 } from "lucide-react";
 import { Experience } from "@/app/types/experience";
 import { formatDateRange } from "@/app/utils/utils"; // Assuming you create this helper
 

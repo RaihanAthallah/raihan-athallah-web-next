@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ArrowRight } from "lucide-react";
 import { SiGoland, SiPostgresql, SiDotnet, SiDocker, SiGit, SiMysql } from "react-icons/si";
 import { IconType } from "react-icons";
@@ -105,7 +105,7 @@ const Header: React.FC = () => {
       <div className="relative container mx-auto px-6 text-center z-10">
         <h2 className="text-cyan-400 text-lg md:text-xl font-medium animate-fade-in">Backend Developer & Database Architect</h2>
         <h1 className="mt-2 text-4xl sm:text-5xl md:text-7xl font-bold text-white animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-          Hello, I'm <span className="text-cyan-400">Raihan</span>
+          Hello, I am <span className="text-cyan-400">Raihan</span>
           <span className="animate-wave inline-block ml-4 origin-[70%_70%]">👋</span>
         </h1>
         <p className="mt-6 max-w-2xl mx-auto text-gray-300 text-md md:text-lg leading-relaxed animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
