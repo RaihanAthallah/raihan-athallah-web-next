@@ -1,4 +1,4 @@
-import { jwtData } from "@/app/types/user";
+import { jwtData } from "@/cores/types/user";
 
 export function jwtDecode<T>(token: string): T {
   const base64Url = token.split(".")[1];

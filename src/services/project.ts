@@ -1,4 +1,4 @@
-import { Project } from "@/app/types/project";
+import { Project } from "@/cores/types/project";
 // use this service to fetch data from the server
 
 // get API url from environment variable

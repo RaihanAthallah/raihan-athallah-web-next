@@ -1,7 +1,7 @@
 import React from "react";
 import { Calendar, Building2 } from "lucide-react";
-import { Experience } from "@/app/types/experience";
-import { formatDateRange } from "@/app/utils/utils"; // Assuming you create this helper
+import { Experience } from "@/cores/types/experience";
+import { formatDateRange } from "@/cores/utils/utils"; // Assuming you create this helper
 
 // This card is now a self-contained block, making it reusable and easier to manage.
 // The timeline layout is handled by the parent component (Home.tsx).

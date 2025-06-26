@@ -2,16 +2,16 @@
 
 import { useState, useEffect } from "react";
 import React from "react";
-import type { Project } from "../../types/project";
-import type { Experience } from "../../types/experience";
-import type { Profile } from "../../types/profile";
+import type { Project } from "../../cores/types/project";
+import type { Experience } from "../../cores/types/experience";
+import type { Profile } from "../../cores/types/profile";
 
-import { CreateProjectModal } from "@/app/components/modal/createProject";
-import { CreateExperienceModal } from "@/app/components/modal/createExperience";
-import { formatDate } from "@/app/utils/utils";
-import Navbar from "@/app/components/common/navbar";
-import { ExperienceService } from "@/app/services/experience";
-import { ProjectService } from "@/app/services/project";
+import { CreateProjectModal } from "@/components/modal/createProject";
+import { CreateExperienceModal } from "@/components/modal/createExperience";
+import { formatDate } from "@/cores/utils/utils";
+import Navbar from "@/components/common/navbar";
+import { ExperienceService } from "@/services/experience";
+import { ProjectService } from "@/services/project";
 
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"projects" | "experience" | "profile">("projects");

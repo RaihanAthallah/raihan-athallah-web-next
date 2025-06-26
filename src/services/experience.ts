@@ -1,4 +1,4 @@
-import { Experience } from "@/app/types/experience";
+import { Experience } from "@/cores/types/experience";
 // use this service to fetch data from the server
 
 // get API url from environment variable

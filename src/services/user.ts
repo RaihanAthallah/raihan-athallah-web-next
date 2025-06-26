@@ -1,5 +1,5 @@
-import { Login } from "@/app/types/user";
-import { setCookie } from "@/app/utils/auth";
+import { Login } from "@/cores/types/user";
+import { setCookie } from "@/cores/utils/auth";
 // use this service to fetch data from the server
 
 // get API url from environment variable

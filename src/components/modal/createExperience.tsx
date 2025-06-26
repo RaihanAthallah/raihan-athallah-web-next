@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Modal from "../common/modal"; // Adjust the path as necessary
 import { Plus, X } from "lucide-react";
-import { Experience } from "../../types/experience";
+import { Experience } from "../../cores/types/experience";
 
 export function CreateExperienceModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [experience, setExperience] = useState<Omit<Experience, "endDate"> & { endDate?: Date }>({
@@ -68,38 +68,17 @@ export function CreateExperienceModal({ isOpen, onClose }: { isOpen: boolean; on
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
           <label className="text-sm font-medium text-cyan-400">Position</label>
-          <input
-            type="text"
-            name="position"
-            value={experience.position}
-            onChange={handleChange}
-            className="w-full rounded-lg bg-gray-700/50 p-2 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
-            placeholder="Enter position"
-          />
+          <input type="text" name="position" value={experience.position} onChange={handleChange} className="w-full rounded-lg bg-gray-700/50 p-2 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50" placeholder="Enter position" />
         </div>
 
         <div className="space-y-2">
           <label className="text-sm font-medium text-cyan-400">Company</label>
-          <input
-            type="text"
-            name="company"
-            value={experience.company}
-            onChange={handleChange}
-            className="w-full rounded-lg bg-gray-700/50 p-2 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
-            placeholder="Enter company name"
-          />
+          <input type="text" name="company" value={experience.company} onChange={handleChange} className="w-full rounded-lg bg-gray-700/50 p-2 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50" placeholder="Enter company name" />
         </div>
 
         <div className="space-y-2">
           <label className="text-sm font-medium text-cyan-400">Description</label>
-          <textarea
-            name="description"
-            value={experience.description}
-            onChange={handleChange}
-            className="w-full rounded-lg bg-gray-700/50 p-2 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
-            placeholder="Enter description"
-            rows={3}
-          />
+          <textarea name="description" value={experience.description} onChange={handleChange} className="w-full rounded-lg bg-gray-700/50 p-2 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50" placeholder="Enter description" rows={3} />
         </div>
 
         <div className="grid grid-cols-2 gap-4">
@@ -150,13 +129,7 @@ export function CreateExperienceModal({ isOpen, onClose }: { isOpen: boolean; on
               ))}
             </ul>
             <div className="flex items-center space-x-2">
-              <input
-                type="text"
-                value={newAchievement}
-                onChange={(e) => setNewAchievement(e.target.value)}
-                className="flex-1 rounded-lg bg-gray-700/50 p-2 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
-                placeholder="Add achievement"
-              />
+              <input type="text" value={newAchievement} onChange={(e) => setNewAchievement(e.target.value)} className="flex-1 rounded-lg bg-gray-700/50 p-2 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50" placeholder="Add achievement" />
               <button type="button" onClick={handleAddAchievement} className="rounded-lg bg-cyan-500/20 p-2 text-cyan-400 hover:bg-cyan-500/30">
                 <Plus size={20} />
               </button>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 // Using GeistSans and GeistMono is the more conventional import from 'geist/font'
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import "./styles/globals.css";
+import "../styles/globals.css";
 
 /**
  * Enhanced metadata for better SEO and social media sharing.
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     description: "Explore the portfolio of Raihan Athallah, showcasing projects in backend development, database architecture, and more.",
     // You should replace this with a URL to a specific image for sharing
     // images: ['/og-image.png'],
-    url: "https://your-domain.com", // Replace with your actual domain
+    url: "https://raihanathallah.com", // Replace with your actual domain
     siteName: "Raihan Athallah's Portfolio",
     locale: "en_US",
     type: "website",

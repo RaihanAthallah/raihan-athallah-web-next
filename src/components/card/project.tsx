@@ -1,6 +1,6 @@
 import React from "react";
 import { ExternalLink } from "lucide-react";
-import { Project } from "@/app/types/project";
+import { Project } from "@/cores/types/project";
 import Image from "next/image";
 
 const ProjectCard: React.FC<Project> = ({ title, description, imageUrl, techStacks, projectUrl }) => (

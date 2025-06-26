@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { UserService } from "@/app/services/user";
+import { UserService } from "@/services/user";
 // import { AlertCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 // import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -84,17 +84,7 @@ export default function Login() {
               <label htmlFor="email" className="text-sm font-medium text-cyan-400">
                 Email
               </label>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className={`w-full rounded-lg bg-gray-700/50 p-2 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 ${error?.field === "email" ? "ring-2 ring-red-500" : ""}`}
-                placeholder="Enter your email"
-                aria-invalid={error?.field === "email"}
-                aria-describedby={error?.field === "email" ? "email-error" : undefined}
-              />
+              <input id="email" type="email" name="email" value={formData.email} onChange={handleChange} className={`w-full rounded-lg bg-gray-700/50 p-2 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 ${error?.field === "email" ? "ring-2 ring-red-500" : ""}`} placeholder="Enter your email" aria-invalid={error?.field === "email"} aria-describedby={error?.field === "email" ? "email-error" : undefined} />
               {error?.field === "email" && (
                 <p id="email-error" className="text-sm text-red-500 mt-1">
                   {error.message}
@@ -106,17 +96,7 @@ export default function Login() {
               <label htmlFor="password" className="text-sm font-medium text-cyan-400">
                 Password
               </label>
-              <input
-                id="password"
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                className={`w-full rounded-lg bg-gray-700/50 p-2 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 ${error?.field === "password" ? "ring-2 ring-red-500" : ""}`}
-                placeholder="Enter your password"
-                aria-invalid={error?.field === "password"}
-                aria-describedby={error?.field === "password" ? "password-error" : undefined}
-              />
+              <input id="password" type="password" name="password" value={formData.password} onChange={handleChange} className={`w-full rounded-lg bg-gray-700/50 p-2 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 ${error?.field === "password" ? "ring-2 ring-red-500" : ""}`} placeholder="Enter your password" aria-invalid={error?.field === "password"} aria-describedby={error?.field === "password" ? "password-error" : undefined} />
               {error?.field === "password" && (
                 <p id="password-error" className="text-sm text-red-500 mt-1">
                   {error.message}

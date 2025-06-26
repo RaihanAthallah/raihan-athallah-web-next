@@ -23,26 +23,12 @@ export function CreateProjectModal({ isOpen, onClose }: { isOpen: boolean; onClo
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
           <label className="text-sm font-medium text-cyan-400">Project Title</label>
-          <input
-            type="text"
-            name="title"
-            value={project.title}
-            onChange={handleChange}
-            className="w-full rounded-lg bg-gray-700/50 p-2 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
-            placeholder="Enter project title"
-          />
+          <input type="text" name="title" value={project.title} onChange={handleChange} className="w-full rounded-lg bg-gray-700/50 p-2 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50" placeholder="Enter project title" />
         </div>
 
         <div className="space-y-2">
           <label className="text-sm font-medium text-cyan-400">Description</label>
-          <textarea
-            name="description"
-            value={project.description}
-            onChange={handleChange}
-            className="w-full rounded-lg bg-gray-700/50 p-2 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
-            placeholder="Enter project description"
-            rows={4}
-          />
+          <textarea name="description" value={project.description} onChange={handleChange} className="w-full rounded-lg bg-gray-700/50 p-2 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50" placeholder="Enter project description" rows={4} />
         </div>
 
         <div className="flex justify-end space-x-2 pt-4">

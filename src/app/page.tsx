@@ -1,15 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Experience } from "@/app/types/experience";
-import { ExperienceService } from "@/app/services/experience";
-import { Project } from "@/app/types/project";
-import { ProjectService } from "@/app/services/project";
-import Header from "@/app/components/common/header";
-import { Footer } from "@/app/components/common/footer";
-import ProjectCard from "@/app/components/card/project";
-import ExperienceCard from "@/app/components/card/experience";
-import Skills from "@/app/components/card/skill";
-import Contact from "@/app/components/common/contact";
+import { Experience } from "@/cores/types/experience";
+import { ExperienceService } from "@/services/experience";
+import { Project } from "@/cores/types/project";
+import { ProjectService } from "@/services/project";
+import Header from "@/components/common/header";
+import { Footer } from "@/components/common/footer";
+import ProjectCard from "@/components/card/project";
+import ExperienceCard from "@/components/card/experience";
+import Skills from "@/components/card/skill";
+import Contact from "@/components/common/contact";
 
 const Home: React.FC = () => {
   const [experiences, setExperiences] = useState<Experience[]>([]);
