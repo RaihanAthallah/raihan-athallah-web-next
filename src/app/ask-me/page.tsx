@@ -60,7 +60,7 @@ const Home: React.FC = () => {
       }
     } catch (error) {
       console.error("Network or fatal error:", error);
-      const networkErrorMsg: ChatMessage = { sender: "bot", text: "Sorry, I'm having trouble connecting. Please try again later." };
+      const networkErrorMsg: ChatMessage = { sender: "bot", text: "Sorry, we having trouble connecting. Please try again later." };
       setChatHistory((prevHistory) => [...prevHistory, networkErrorMsg]);
     } finally {
       setIsLoading(false);

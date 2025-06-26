@@ -1,4 +1,4 @@
-export class SuccessResponse<T = any> {
+export class SuccessResponse<T> {
   success: true;
   statusCode: number;
   message: string;
