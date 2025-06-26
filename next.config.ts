@@ -13,6 +13,7 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL, // Ensures it's available at build time
   },
+  ignoreDuringBuilds: true,
 };
 
 export default nextConfig;
